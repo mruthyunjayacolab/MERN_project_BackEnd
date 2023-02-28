@@ -22,6 +22,29 @@ mongoose.connect(dbUrl).then(() => {
     console.log("conncted to database");
 })
 
+app.post('/login',(req,res)=>{
+
+    User.findOne({email:req.body.email},(err,userData)=>{
+
+        if(userData){
+
+            if(req.body.password==userData.password){
+                res.send({message:'login Seccessful'})
+            }
+            else{
+                res.send({message:'login failed'})
+            }
+
+        }
+        else{
+            res.send({message:' no acccount not to be matching with your macthing with your password'})
+        }
+
+    })
+})
+
+
+
 //!posting the data from the signin page
 app.post('/signup', async (req, res) => {
 
